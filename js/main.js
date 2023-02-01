@@ -33,15 +33,18 @@ function carrera(){
     let ratas = document.getElementsByClassName("rata");
     for (let i = 0; i < ratas.length; i++) {
         let posicion = ratas[i].offsetLeft;
-        let posicionQueso = document.getElementById(`queso${i}`).offsetLeft;
+        let posicionQueso = document.getElementById(`queso${i}`).offsetLeft - 200;
         let random = Math.floor(Math.random() * 60) - 30;
-        
-        if (posicion < posicionQueso) {
-            ratas[i].style.left = posicion + random + "px";
-        } else {
-            alert(`La rata ${i+1} ha ganado`);
-            clearInterval(carrera);
+
+        ratas[i].style.left = posicion + random + "px";
+
+        console.log(ratas[i].offsetLeft, posicionQueso, "Rata: " + i)
+        console.log(ratas[i].offsetLeft >= posicionQueso)
+
+        if (ratas[i].offsetLeft >= posicionQueso) {
+            alert("La rata " + (i+1) + " ha ganado");
         }
+
     }
 }
 
