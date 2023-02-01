@@ -1,6 +1,7 @@
-let participantes = 6;
+let participantes = 0;
 let campoJuego = document.getElementById("campoJuego");
 let botonIniciar = document.getElementById("botonIniciar");
+let formParticipantes = document.getElementById("formParticipantes");
 
 /*
 do {
@@ -8,27 +9,44 @@ do {
 } while (participantes < 2 || participantes > 6);
 */
 
-for (let i = 0; i < participantes; i++) {
-    campoJuego.innerHTML += `
-        <div class="border-2 w-full p-4 border-black bg-gray-300 flex items-center">     
-            <span class=text-4xl font-bold>${i+1}</span><img src="./assets/rata_corriendo.gif" class="w-50 h-20 relative rata" id=rata${i}>
-            <img src="./assets/queso.png" class="w-20 h-30 ml-auto" id=queso${i}>
-        </div>
-        `;
+function crearRatas() {
+    for (let i = 0; i < participantes; i++) {
+        campoJuego.innerHTML += `
+            <div class="border-2 w-full p-4 border-black bg-gray-300 flex items-center">     
+                <span class=text-4xl font-bold>${i+1}</span><img src="./assets/rata_corriendo.gif" class="w-50 h-20 relative rata" id=rata${i}>
+                <img src="./assets/queso.png" class="w-20 h-30 ml-auto" id=queso${i}>
+            </div>
+            `;
+    }
+}
+
+function montarJuego(){
+    campoJuego.innerHTML = "";
+    formParticipantes.classList.toggle("hidden");
+    botonIniciar.classList.toggle("hidden");
+    participantes = document.getElementById("participantes").value;
+    
+    crearRatas();
 }
 
 function carrera(){
     let ratas = document.getElementsByClassName("rata");
-    console.log(ratas)
     for (let i = 0; i < ratas.length; i++) {
-        ratas[i].style.left = Math.floor(Math.random() * 100) + "%";
-        ratas[i].style.right = Math.floor(Math.random() * 100) + "%";
+        let posicion = ratas[i].offsetLeft;
+        let posicionQueso = document.getElementById(`queso${i}`).offsetLeft;
+        let random = Math.floor(Math.random() * 60) - 30;
+        
+        if (posicion < posicionQueso) {
+            ratas[i].style.left = posicion + random + "px";
+        } else {
+            alert(`La rata ${i+1} ha ganado`);
+            clearInterval(carrera);
+        }
     }
 }
 
 function iniciarCarrera(){
-    carrera();
-    setInterval(carrera, 1000);
+    setInterval(carrera, 50);
 }
 
 botonIniciar.addEventListener("click", iniciarCarrera);
