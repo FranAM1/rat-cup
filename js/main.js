@@ -6,7 +6,7 @@ let formParticipantes = document.getElementById("formParticipantes");
 let intervalo;
 let dinero = localStorage.getItem("dinero");
 if (dinero == null) {
-    dinero = 100;
+    dinero = 500;
     localStorage.setItem("dinero", dinero);
 }
 document.getElementById("dinero").innerHTML += `<span class="font-normal">${dinero}</span>`;
@@ -34,6 +34,7 @@ function montarJuego(){
 
 function carrera(){
     let ratas = document.getElementsByClassName("rata");
+    let dineroJuego = 10 * ratas.length
     for (let i = 0; i < ratas.length; i++) {
         let posicion = ratas[i].offsetLeft;
         let posicionQueso = document.getElementById(`queso${i}`).offsetLeft - 200;
@@ -47,10 +48,10 @@ function carrera(){
         if (ratas[i].offsetLeft >= posicionQueso) {
             alert("La rata " + (i+1) + " ha ganado");
             if(apuesta == i+1){
-                dinero = parseInt(dinero) + 10;
+                dinero = parseInt(dinero) + dineroJuego;
                 localStorage.setItem("dinero", dinero);
             }else{
-                dinero = parseInt(dinero) - 10;
+                dinero = parseInt(dinero) - dineroJuego;
                 localStorage.setItem("dinero", dinero);
             }
             clearInterval(intervalo)
