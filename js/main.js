@@ -33,7 +33,7 @@ function carrera(){
     let ratas = document.getElementsByClassName("rata");
     for (let i = 0; i < ratas.length; i++) {
         let posicion = ratas[i].offsetLeft;
-        let posicionQueso = document.getElementById(`queso${i}`).offsetLeft - 200;
+        let posicionQueso = document.getElementById(`queso${i}`).offsetLeft - 180;
         let random = Math.floor(Math.random() * 60) - 30;
 
         ratas[i].style.left = posicion + random + "px";
