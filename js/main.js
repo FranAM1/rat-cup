@@ -13,7 +13,7 @@ if (dinero == null) {
 //mostrar dinero
 document.getElementById("dinero").innerHTML += `<span class="font-normal">${dinero}</span>`;
 
-if(dinero < 0){
+if(dinero <= 0){
     document.getElementById("ganando").classList.toggle("hidden");
     document.getElementById("perdiendo").classList.toggle("hidden");
 }
